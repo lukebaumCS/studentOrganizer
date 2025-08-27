@@ -1,6 +1,6 @@
-package com.example.studentorganizer.Course;
+package com.organizer.studentorganizer.Course;
 
-import com.example.studentorganizer.Professor.Professor;
+import com.organizer.studentorganizer.Professor.Professor;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;

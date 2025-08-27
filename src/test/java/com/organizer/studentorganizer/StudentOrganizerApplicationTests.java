@@ -1,4 +1,4 @@
-package com.example.studentorganizer;
+package com.organizer.studentorganizer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

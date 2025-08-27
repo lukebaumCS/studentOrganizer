@@ -1,4 +1,4 @@
-package com.example.studentorganizer.Course;
+package com.organizer.studentorganizer.Course;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

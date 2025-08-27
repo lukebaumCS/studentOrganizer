@@ -1,4 +1,4 @@
-package com.example.studentorganizer.Course;
+package com.organizer.studentorganizer.Course;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

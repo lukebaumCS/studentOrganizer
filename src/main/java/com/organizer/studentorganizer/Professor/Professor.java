@@ -1,7 +1,7 @@
-package com.example.studentorganizer.Professor;
+package com.organizer.studentorganizer.Professor;
 
 
-import com.example.studentorganizer.Course.Course;
+import com.organizer.studentorganizer.Course.Course;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
