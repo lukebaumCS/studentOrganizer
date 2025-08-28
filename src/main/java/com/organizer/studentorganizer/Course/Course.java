@@ -8,34 +8,39 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is required")
     private String name;
+
     private String description;
 
     @ManyToMany(mappedBy = "courses")
     private List<Professor> professor;
 
+    @NotNull(message = "Credits is required")
     private Integer credits;
-    private LocalDate startDate;
-    private LocalDate endDate;
 
+    private LocalDate examDateOne;
+    private LocalDate examDateTwo;
 
+    
 
     public Course() {}
 
-    public Course(String name, String description, Integer credits, LocalDate startDate, LocalDate endDate) {
+    public Course(String name, String description, Integer credits, LocalDate examDateOne, LocalDate examDateTwo) {
         this.name = name;
         this.description = description;
         this.credits = credits;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.examDateOne = examDateOne;
+        this.examDateTwo = examDateTwo;
     }
 
 
@@ -67,19 +72,19 @@ public class Course {
         this.credits = credits;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public LocalDate getExamDateOne() {
+        return examDateOne;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setExamDateOne(LocalDate examDateOne) {
+        this.examDateOne = examDateOne;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public LocalDate getExamDateTwo() {
+        return examDateTwo;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void setExamDateTwo(LocalDate examDateTwo) {
+        this.examDateTwo = examDateTwo;
     }
 }

@@ -19,7 +19,6 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-
     @RequestMapping("/dashboard")
     @Transactional
     public String dashboard(Model model) {
@@ -30,14 +29,26 @@ public class CourseController {
     }
 
 
-    @RequestMapping("/course/add")
+    @GetMapping("/add")
     @Transactional
-    public String addCourse() {
+    public String addCourse(Model model) {
+        model.addAttribute("course", new Course());
 
         return "course/add";
-
     }
 
+    @PostMapping("/add/complete")
+    @Transactional
+    public String validateNewCourse(@Valid @ModelAttribute("course") Course course, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            System.out.println("FEHLER");
+            return "course/add";
+        }
+
+        courseService.addCourse(course);
+        return "redirect:/course/dashboard";
+    }
 
 
     @PostMapping("/delete/{id}")
