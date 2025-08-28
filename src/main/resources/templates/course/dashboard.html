@@ -3,52 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/sytles.css}" />
 </head>
 <body>
 
-<div class="container">
-    <h1>Dashboard</h1>
+<h1>Dashboard</h1>
 
-    <div th:if="${successMessage}" class="alert success">
-        <p th:text="${successMessage}"></p>
+<div th:if="${successMessage}" class="alert success">
+    <p th:text="${successMessage}"></p>
+</div>
+
+<div class="course-divs-container">
+
+    <div class="add-course-div">
+        <a th:href="@{/course/add}" class="add-btn">+</a>
     </div>
 
-    <table class="course-table">
-        <thead>
-        <tr>
-            <th>Course ID</th>
-            <th>Course Name</th>
-            <th>Credits</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Description</th>
-            <th>Action</th>
-            <th>
-                <form th:action="@{/course/add}" th:object="${course}" method="get" class="add-form">
-                    <button type="submit" class="add-btn">+</button>
-                </form>
-            </th>
-        </tr>
-        </thead>
+    <div class="course-divs" th:each="course : ${courses}">
 
-        <tbody>
-        <tr th:each="course : ${courses}">
-            <td th:text="${course.id}"></td>
-            <td th:text="${course.name}"></td>
-            <td th:text="${course.credits}"></td>
-            <td th:text="${course.examDateOne} ?: '–' "></td>
-            <td th:text="${course.examDateTwo}?: '–' "></td>
-            <td th:text="${course.description}"></td>
-            <td>
-                <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post" class="delete-form">
-                    <button type="submit" class="delete-btn">✖</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post" style="position: absolute; top: 8px; right: 10px;">
+            <button class="close-btn" type="submit">×</button>
+        </form>
+
+        <div class="course-title">
+            <h3 th:text="${course.name}"></h3>
+            <h4 th:text="${course.credits} + ' Credits'"></h4>
+        </div>
+
+        <div class="course-description">
+            <p th:text="${course.description ?: 'No description available'}"></p>
+            <p th:text="${course.examDateOne ?: 'No exam dates available'}"></p>
+            <p th:text="${course.examDateTwo ?: 'No exam dates available'}"></p>
+        </div>
+
+    </div>
 </div>
+
 
 </body>
 </html>
