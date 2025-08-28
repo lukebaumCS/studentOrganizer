@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 
-<h1>Dashboard</h1>
+<div class="container">
+    <h1>Dashboard</h1>
 
-<table>
-    <tr>
-        <th>Course ID</th>
-        <th>Course Name</th>
-        <th>Credits</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Description</th>
-    </tr>
+    <div th:if="${successMessage}" class="alert success">
+        <p th:text="${successMessage}"></p>
+    </div>
 
-    <tr th:each="course : ${courses}">
-        <td th:text="${course.id}"></td>
-        <td th:text="${course.name}"></td>
-        <td th:text="${course.credits}"></td>
-        <td th:text="${course.startDate}"></td>
-        <td th:text="${course.endDate}"></td>
-        <td th:text="${course.description}"></td>
-    </tr>
-</table>
+    <table class="course-table">
+        <thead>
+        <tr>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Credits</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Description</th>
+            <th>Action</th>
+            <th>
+                <form th:action="@{/course/add}" th:object="${course}" method="get" class="add-form">
+                    <button type="submit" class="add-btn">+</button>
+                </form>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.id}"></td>
+            <td th:text="${course.name}"></td>
+            <td th:text="${course.credits}"></td>
+            <td th:text="${course.examDateOne} ?: '–' "></td>
+            <td th:text="${course.examDateTwo}?: '–' "></td>
+            <td th:text="${course.description}"></td>
+            <td>
+                <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post" class="delete-form">
+                    <button type="submit" class="delete-btn">✖</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

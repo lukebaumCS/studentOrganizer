@@ -27,7 +27,7 @@ public class CourseService {
     }
 
     @Transactional
-    public void deleteCourse(Course course) {
-        courserepository.delete(course);
+    public void deleteCourseById(Long id) {
+        courserepository.deleteById(id);
     }
 }
