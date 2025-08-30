@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Add a course</title>
+    <link rel="stylesheet" th:href="@{/css/addNewCourse.css}" />
 </head>
 <body>
 
@@ -28,7 +29,29 @@
     <label>Second Exam date</label>
     <input type="date" th:field="*{examDateTwo}" placeholder="Second Exam Date" />
 
-    <button type="submit">Submit new Course</button>
+    <h3>Course Events</h3>
+    <div th:each="event, iterStat : *{events}" class="event-block">
+        <select th:field="*{events[__${iterStat.index}__].type}">
+            <option th:each="t : ${T(com.organizer.studentorganizer.Course.Type).values()}"
+                    th:value="${t}" th:text="${t}">Type</option>
+        </select>
+
+        <label>Weekday</label>
+        <select th:field="*{events[__${iterStat.index}__].weekday}">
+            <option th:each="d : ${T(com.organizer.studentorganizer.Course.Weekday).values()}"
+                    th:value="${d}" th:text="${d}">Weekday</option>
+        </select>
+
+        <label>Start Time</label>
+        <input type="time" th:field="*{events[__${iterStat.index}__].startTime}" />
+
+        <label>End Time</label>
+        <input type="time" th:field="*{events[__${iterStat.index}__].endTime}" />
+        <hr/>
+    </div>
+
+    <button type="submit" formaction="/course/add/event">Add Event</button>
+    <button type="submit" formaction="/course/add/complete">Submit new Course</button>
 </form>
 
 </body>

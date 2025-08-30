@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,15 +33,34 @@ public class CourseController {
     @GetMapping("/add")
     @Transactional
     public String addCourse(Model model) {
-        model.addAttribute("course", new Course());
+        if (!model.containsAttribute("course")) {
+            Course course = new Course();
+            List<CourseEvent> events = new ArrayList<>();
+            events.add(new CourseEvent());
+            course.setEvents(events);
+            model.addAttribute("course", course);
+        }
+        return "course/add";
+    }
+
+
+    @PostMapping("/add/event")
+    @Transactional
+    public String addEvent(@ModelAttribute("course") Course course, Model model) {
+        if (course.getEvents() == null) {
+            course.setEvents(new ArrayList<>());
+        }
+
+        course.getEvents().add(new CourseEvent());
+        model.addAttribute("course", course);
 
         return "course/add";
     }
 
+
     @PostMapping("/add/complete")
     @Transactional
     public String validateNewCourse(@Valid @ModelAttribute("course") Course course, BindingResult result, Model model) {
-
         if (result.hasErrors()) {
             System.out.println("FEHLER");
             return "course/add";
