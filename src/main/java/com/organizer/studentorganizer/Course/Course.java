@@ -2,8 +2,11 @@ package com.organizer.studentorganizer.Course;
 
 import com.organizer.studentorganizer.Professor.Professor;
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -25,22 +28,27 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     private List<Professor> professor;
 
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CourseEvent> events = new ArrayList<>();
+
     @NotNull(message = "Credits is required")
     private Integer credits;
 
     private LocalDate examDateOne;
     private LocalDate examDateTwo;
 
-    
 
-    public Course() {}
+    public Course() {
+    }
 
-    public Course(String name, String description, Integer credits, LocalDate examDateOne, LocalDate examDateTwo) {
+    public Course(String name, String description, Integer credits, LocalDate examDateOne, LocalDate examDateTwo, List<CourseEvent> events) {
         this.name = name;
         this.description = description;
         this.credits = credits;
         this.examDateOne = examDateOne;
         this.examDateTwo = examDateTwo;
+        this.events = events;
     }
 
 
@@ -87,4 +95,9 @@ public class Course {
     public void setExamDateTwo(LocalDate examDateTwo) {
         this.examDateTwo = examDateTwo;
     }
+
+    public List<CourseEvent> getEvents() { return events; }
+
+    public void setEvents(List<CourseEvent> events) { this.events = events; }
 }
+
