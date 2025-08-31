@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Add a course</title>
-    <link rel="stylesheet" th:href="@{/css/addNewCourse.css}" />
+    <link rel="stylesheet" th:href="@{/css/newCourse.css}" />
 </head>
 <body>
 
@@ -28,6 +28,14 @@
 
     <label>Second Exam date</label>
     <input type="date" th:field="*{examDateTwo}" placeholder="Second Exam Date" />
+
+
+    <label>Select Semester</label>
+    <select id="semester" th:field="*{semester}">
+        <option value="" disabled selected>-- choose semester --</option>
+        <option th:each="s : ${allSemesters}" th:value="${s.id}" th:text="${s.name}+ ${s.startYear}"></option>
+    </select>
+
 
     <h3>Course Events</h3>
     <div th:each="event, iterStat : *{events}" class="event-block">

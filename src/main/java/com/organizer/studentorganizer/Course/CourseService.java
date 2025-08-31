@@ -1,5 +1,6 @@
 package com.organizer.studentorganizer.Course;
 
+import com.organizer.studentorganizer.Semester.Semester;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,8 +27,29 @@ public class CourseService {
         return courserepository.findAll();
     }
 
+    public Course getCourseById(long id) {
+        if (courserepository.existsById(id))
+            return courserepository.findById(id).get();
+        else return null;
+    }
+
     @Transactional
     public void deleteCourseById(Long id) {
         courserepository.deleteById(id);
+    }
+
+    public List<CourseEvent> getAllCourseEvents(Long id) {
+        Course course = getCourseById(id);
+
+        if  (course == null) return null;
+        else return course.getEvents();
+    }
+
+
+    public Semester getSemesterById(long id) {
+        Course course = getCourseById(id);
+
+        if  (course == null) return null;
+        else return course.getSemester();
     }
 }

@@ -1,6 +1,7 @@
 package com.organizer.studentorganizer.Course;
 
 import com.organizer.studentorganizer.Professor.Professor;
+import com.organizer.studentorganizer.Semester.Semester;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -28,9 +29,13 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     private List<Professor> professor;
 
-
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CourseEvent> events = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "semester_id")
+    private Semester semester;
+
 
     @NotNull(message = "Credits is required")
     private Integer credits;
@@ -42,13 +47,14 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, String description, Integer credits, LocalDate examDateOne, LocalDate examDateTwo, List<CourseEvent> events) {
+    public Course(String name, String description, Integer credits, LocalDate examDateOne, LocalDate examDateTwo, List<CourseEvent> events, Semester semester) {
         this.name = name;
         this.description = description;
         this.credits = credits;
         this.examDateOne = examDateOne;
         this.examDateTwo = examDateTwo;
         this.events = events;
+        this.semester = semester;
     }
 
 
@@ -99,5 +105,8 @@ public class Course {
     public List<CourseEvent> getEvents() { return events; }
 
     public void setEvents(List<CourseEvent> events) { this.events = events; }
+
+    public Semester getSemester() { return this.semester; }
+
 }
 
