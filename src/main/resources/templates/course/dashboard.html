@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+</head>
+<body>
+
+<h1>Dashboard</h1>
+
+<div th:if="${successMessage}" class="alert success">
+    <p th:text="${successMessage}"></p>
+</div>
+
+<div class="course-divs-container">
+
+    <div class="add-course-div">
+        <a th:href="@{/course/add}" class="add-btn">+</a>
+    </div>
+
+    <div class="course-divs" th:each="course : ${courses}">
+
+        <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post" style="position: absolute; top: 8px; right: 10px;">
+            <button class="close-btn" type="submit">×</button>
+        </form>
+
+        <div class="course-title">
+            <h3 th:text="${course.name}"></h3>
+            <h4 th:text="${course.credits} + ' Credits'"></h4>
+        </div>
+
+        <div class="course-description">
+            <p th:text="${course.description ?: 'No description available'}"></p>
+            <p th:text="${course.examDateOne ?: 'No exam dates available'}"></p>
+            <p th:text="${course.examDateTwo ?: 'No exam dates available'}"></p>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>
