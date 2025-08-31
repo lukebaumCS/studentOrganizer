@@ -17,7 +17,7 @@ h1 {
     max-width: 600px;
     margin: 0 auto;
     background: #fff;
-    padding: 20px 30px;
+    padding: 30px 40px;
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
@@ -26,22 +26,42 @@ h1 {
     display: block;
     margin-top: 15px;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: 600;
     color: #2c3e50;
 }
 
 .course-form input,
 .course-form select {
     width: 100%;
-    padding: 8px 12px;
+    padding: 10px 12px;
     border: 1px solid #bdc3c7;
     border-radius: 8px;
     box-sizing: border-box;
     margin-bottom: 10px;
+    font-size: 0.95rem;
 }
 
-.course-form button {
-    margin-top: 15px;
+h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.event-block {
+    background: #ecf0f1;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px dashed #bdc3c7;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.primary-btn {
     padding: 10px 20px;
     border: none;
     border-radius: 12px;
@@ -52,14 +72,21 @@ h1 {
     transition: background 0.2s;
 }
 
-.course-form button:hover {
+.primary-btn:hover {
     background-color: #34495e;
 }
 
-.event-block {
-    background: #ecf0f1;
-    padding: 10px 15px;
-    margin-bottom: 10px;
+.secondary-btn {
+    padding: 10px 20px;
+    border: none;
     border-radius: 12px;
-    border: 1px dashed #bdc3c7;
+    background-color: #bdc3c7;
+    color: #2c3e50;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.secondary-btn:hover {
+    background-color: #95a5a6;
 }
