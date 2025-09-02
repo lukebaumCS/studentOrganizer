@@ -20,22 +20,22 @@
     </div>
 
     <div class="course-divs" th:each="course : ${courses}">
+        <a th:href="@{/course/mainpage/{id}(id=${course.id})}" style="text-decoration: none; color: inherit;">
+            <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post" style="position: absolute; top: 8px; right: 10px;">
+                <button class="close-btn" type="submit">×</button>
+            </form>
 
-        <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post" style="position: absolute; top: 8px; right: 10px;">
-            <button class="close-btn" type="submit">×</button>
-        </form>
+            <div class="course-title">
+                <h3 th:text="${course.name}"></h3>
+                <h4 th:text="${course.credits} + ' Credits'"></h4>
+            </div>
 
-        <div class="course-title">
-            <h3 th:text="${course.name}"></h3>
-            <h4 th:text="${course.credits} + ' Credits'"></h4>
-        </div>
-
-        <div class="course-description">
-            <p th:text="${course.description ?: 'No description available'}"></p>
-            <p th:text="${course.examDateOne ?: 'No exam dates available'}"></p>
-            <p th:text="${course.examDateTwo ?: 'No exam dates available'}"></p>
-        </div>
-
+            <div class="course-description">
+                <p th:text="${course.description ?: 'No description available'}"></p>
+                <p th:text="${course.examDateOne ?: 'No exam dates available'}"></p>
+                <p th:text="${course.examDateTwo ?: 'No exam dates available'}"></p>
+            </div>
+        </a>
     </div>
 </div>
 

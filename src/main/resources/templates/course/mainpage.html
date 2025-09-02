@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+    <link rel="stylesheet" th:href="@{/css/mainpage.css}" />
+
+</head>
+<body>
+
+<div class="course-div-container">
+    <div class="title-div">
+        <h1 th:text="${course.name}">Kursname</h1>
+        <h2 th:text="${course.credits} + 'Credits'">Credits </h2>
+        <h2 th:text="${course.description}">Beschreibung</h2>
+    </div>
+
+    <div class="content-div">
+        <p th:text="'First exam date: ' +  ${course.examDateOne ?: 'No exam dates available'}"></p>
+        <p th:text="'Second exam date: ' + ${course.examDateTwo ?: 'No exam dates available'}"></p>
+    </div>
+
+    <div class="event-divs" th:each="event: ${course.events}">
+        <h1 th:text="${event.type}"></h1>
+        <h2 th:text="${event.weekday}"></h2>
+        <p th:text="${event.startTime}"></p>
+        <p th:text="${event.endTime}"></p>
+    </div>
+
+    <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post">
+        <button class="close-btn" type="submit">Delete course</button>
+    </form>
+
+</div>
+
+</body>
+</html>
