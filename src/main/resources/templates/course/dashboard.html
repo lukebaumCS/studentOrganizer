@@ -9,7 +9,6 @@
 
 <div class="container">
 
-    <!-- Top-Bar -->
     <div class="top-bar">
         <div class="top-bar-inner">
             <div class="site-name">Dashboard</div>
@@ -21,11 +20,13 @@
         <p th:text="${successMessage}"></p>
     </div>
 
-    <div class="course-divs-container">
+    <div class="main-div-container">
 
-        <div class="add-course-div">
-            <a th:href="@{/course/add}" class="add-btn">+</a>
-        </div>
+        <a th:href="@{/course/add}" class="add-course-link">
+            <div class="add-course-div">
+                +
+            </div>
+        </a>
 
         <div class="course-divs" th:each="course : ${courses}">
             <a th:href="@{/course/mainpage/{id}(id=${course.id})}" style="text-decoration: none; color: inherit;">
