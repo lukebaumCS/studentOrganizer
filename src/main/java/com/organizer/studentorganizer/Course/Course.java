@@ -8,10 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,9 +20,11 @@ public class Course {
     @NotBlank(message = "Name is required")
     private String name;
 
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
     private List<Professor> professor;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -38,7 +36,7 @@ public class Course {
 
 
     @NotNull(message = "Credits is required")
-    private Integer credits;
+    private Float credits;
 
     private LocalDate examDateOne;
     private LocalDate examDateTwo;
@@ -47,7 +45,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, String description, Integer credits, LocalDate examDateOne, LocalDate examDateTwo, List<CourseEvent> events, Semester semester) {
+    public Course(String name, String description, Float credits, LocalDate examDateOne, LocalDate examDateTwo, List<CourseEvent> events, Semester semester) {
         this.name = name;
         this.description = description;
         this.credits = credits;
@@ -78,11 +76,11 @@ public class Course {
         this.description = description;
     }
 
-    public Integer getCredits() {
+    public Float getCredits() {
         return credits;
     }
 
-    public void setCredits(Integer credits) {
+    public void setCredits(Float credits) {
         this.credits = credits;
     }
 
@@ -108,5 +106,6 @@ public class Course {
 
     public Semester getSemester() { return this.semester; }
 
+    public void setSemester(Semester semester) { this.semester = semester; }
 }
 

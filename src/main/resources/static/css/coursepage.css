@@ -1,0 +1,162 @@
+@import url('base.css');
+
+
+.top-bar-inner {
+    justify-content: space-between;
+}
+
+.site-name {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.main-div-container {
+     flex-direction: column;
+ }
+
+.title-container {
+    display: flex;
+    gap: 20px;
+}
+
+.title-left,
+.title-right {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    align-items: center;
+    display: flex;
+}
+
+.title-left {
+    flex: 4;
+
+}
+
+.title-right {
+    flex: 1;
+    justify-content: center;
+}
+
+
+
+.title-left h1,
+.title-left h2 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.title-left h1 {
+    font-size: 2rem;
+    color: #2c3e50;
+
+}
+
+.title-right h2 {
+    font-size: 1rem;
+    color: #555;
+    white-space: nowrap;
+}
+
+.title-left:hover,
+.title-right:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.content-div {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.content-div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.content-div p {
+    margin: 6px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+#description {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #444;
+    font-weight: 600;
+}
+
+.exam-date {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.event-divs {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-divs:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.event-divs h1 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.event-divs h2 {
+    font-size: 1rem;
+    color: #777;
+    margin: 0 0 6px 0;
+}
+
+.event-divs p {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 2px 0;
+}
+
+.btn.secondary,
+.btn.edit {
+    background-color: #f4f6f9;
+    color: #2c3e50;
+}
+
+.btn.secondary:hover,
+.btn.edit:hover {
+    background-color: #e0e4ea;
+}
+
+.btn.delete {
+    background-color: #d9534f;
+    color: #fff;
+    padding: 14px 26px;
+    font-weight: 700;
+    border-radius: 14px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.btn.delete:hover {
+    background-color: #c9302c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.btn.delete:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
