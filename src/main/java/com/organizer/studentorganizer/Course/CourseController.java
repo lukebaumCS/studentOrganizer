@@ -46,7 +46,7 @@ public class CourseController {
         model.addAttribute("course", course);
         model.addAttribute("events", events);
 
-        return "course/mainpage";
+        return "course/coursepage";
     }
 
 
