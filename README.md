@@ -6,7 +6,7 @@
 
 ## Tech Stack
 
-* **Backend:** Java 17, Spring Boot 3
+* **Backend:** Java 24, Spring Boot 3.5
 * **Frontend:** Thymeleaf, HTML5, CSS3
 * **Database:** PostgreSQL (Dockerized)
 * **ORM & Persistence:** Hibernate + JPA
