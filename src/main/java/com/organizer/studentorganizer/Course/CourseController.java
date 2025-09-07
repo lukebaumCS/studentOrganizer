@@ -57,10 +57,12 @@ public class CourseController {
             Course course = new Course();
 
             List<CourseEvent> events = new ArrayList<>();
+            List<Semester> allSemester = semesterService.getAllSemesters();
+            Semester automaticSemester = semesterService.getAutomaticSemester();
+
             events.add(new CourseEvent());
             course.setEvents(events);
-
-            List<Semester> allSemester = semesterService.getAllSemester();
+            course.setSemester(automaticSemester);
 
             model.addAttribute("course", course);
             model.addAttribute("allSemesters", allSemester);
@@ -71,12 +73,12 @@ public class CourseController {
 
     @PostMapping("/add/event")
     @Transactional
-    public String addEvent(@ModelAttribute("course") Course course, Model model) {
+    public String addEvent (@ModelAttribute("course") Course course, Model model) {
         if (course.getEvents() == null) {
             course.setEvents(new ArrayList<>());
         }
 
-        List<Semester> allSemester = semesterService.getAllSemester();
+        List<Semester> allSemester = semesterService.getAllSemesters();
         course.getEvents().add(new CourseEvent());
 
         model.addAttribute("allSemesters", allSemester);

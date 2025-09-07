@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -27,14 +27,14 @@ public class Semester {
     private Integer endYear;
 
     @NotNull
-    private Date startDate;
+    private LocalDate startDate;
     @NotNull
-    private Date endDate;
+    private LocalDate endDate;
 
 
     public Semester() {}
 
-    public Semester(String name, Integer startYear, Integer endYear, Date startDate, Date endDate) {
+    public Semester(String name, Integer startYear, Integer endYear, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.startYear = startYear;
         this.endYear = endYear;
@@ -58,19 +58,19 @@ public class Semester {
         this.name = name;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
