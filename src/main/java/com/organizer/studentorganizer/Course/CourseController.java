@@ -28,7 +28,7 @@ public class CourseController {
 
     @RequestMapping("/dashboard")
     @Transactional
-    public String dashboard(Model model) {
+    public String dashboard (Model model) {
         List<Course> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
 
@@ -37,7 +37,7 @@ public class CourseController {
 
 
     @RequestMapping("/mainpage/{id}")
-    public String mainpage(@PathVariable Long id, Model model) {
+    public String mainPage (@PathVariable Long id, Model model) {
         Course course = courseService.getCourseById(id);
         List<CourseEvent> events = courseService.getAllCourseEvents(id);
 
@@ -47,6 +47,42 @@ public class CourseController {
         model.addAttribute("events", events);
 
         return "course/coursepage";
+    }
+
+
+    @GetMapping("/edit/{id}")
+    @Transactional
+    public String editCourse (@PathVariable Long id, Model model) {
+        Course course = courseService.getCourseById(id);
+        List<Semester> allSemester = semesterService.getAllSemesters();
+
+        model.addAttribute("course", course);
+        model.addAttribute("allSemesters", allSemester);
+
+        return "course/newCourse";
+    }
+
+
+    @PostMapping("/edit/{id}/complete")
+    @Transactional
+    public String update (@Valid @ModelAttribute("course") Course course, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            System.out.println("ERROR while creating a new course!");
+            return "course/add";
+        }
+
+
+        if (course.getSemester() != null) {
+            Semester semester = semesterService.getSemesterById(course.getSemester().getId());
+            course.setSemester(semester);
+        }
+
+        for (CourseEvent event : course.getEvents())
+            event.setCourse(course);
+
+
+        courseService.addCourse(course);
+        return "redirect:/course/dashboard";
     }
 
 
@@ -114,12 +150,11 @@ public class CourseController {
 
     @PostMapping("/delete/{id}")
     @Transactional
-    public String deleteCourse(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public String deleteCourse (@PathVariable Long id, RedirectAttributes redirectAttributes) {
         courseService.deleteCourseById(id);
         redirectAttributes.addFlashAttribute("successMessage", "Course deleted successfully!");
 
         return "redirect:/course/dashboard";
     }
-
 
 }

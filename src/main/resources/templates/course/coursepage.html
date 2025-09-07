@@ -55,9 +55,16 @@
             <p th:text="${event.endTime}"></p>
         </div>
 
-        <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post" style="display:inline;">
-            <button class="btn delete" type="submit">Delete</button>
-        </form>
+
+        <div class="button-group">
+            <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post">
+                <button class="btn delete" type="submit">Delete</button>
+            </form>
+            <form th:action="@{/course/edit/{id}(id=${course.id})}">
+                <button class="btn edit" type="submit">Edit</button>
+            </form>
+        </div>
+
     </div>
 </div>
 
