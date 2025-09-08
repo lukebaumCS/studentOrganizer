@@ -5,64 +5,77 @@
     <title>Add a course</title>
     <link rel="stylesheet" th:href="@{/css/newCourse.css}" />
 </head>
+
 <body>
 
-<h1>Add a new Course</h1>
+<div class="container">
 
-<div class="course-form">
-    <form th:action="@{/course/add/complete}" th:object="${course}" method="post">
-
-        <label>Name</label>
-        <input type="text" th:field="*{name}" placeholder="Course name" required />
-
-        <label>Description</label>
-        <input type="text" th:field="*{description}" placeholder="A description of your course" required />
-
-        <label>Credits</label>
-        <input type="number" step="0.5" th:field="*{credits}" placeholder="Amount of Credits" required />
-
-        <label>First Exam date</label>
-        <input type="date" th:field="*{examDateOne}" required />
-
-        <label>Second Exam date</label>
-        <input type="date" th:field="*{examDateTwo}" required />
-
-        <label>Select Semester</label>
-        <select id="semester" th:field="*{semester}" required>
-            <option value="" disabled selected>-- choose semester --</option>
-            <option th:each="s : ${allSemesters}"
-                    th:value="${s.id}"
-                    th:text="${s.name} + ' (' + ${s.startYear} + ')'">
-            </option>
-        </select>
-
-        <h3>Course Events</h3>
-        <div th:each="event, iterStat : *{events}" class="event-block">
-            <label>Type</label>
-            <select th:field="*{events[__${iterStat.index}__].type}" required>
-                <option th:each="t : ${T(com.organizer.studentorganizer.Course.Type).values()}"
-                        th:value="${t}" th:text="${t}"></option>
-            </select>
-
-            <label>Weekday</label>
-            <select th:field="*{events[__${iterStat.index}__].weekday}" required>
-                <option th:each="d : ${T(com.organizer.studentorganizer.Course.Weekday).values()}"
-                        th:value="${d}" th:text="${d}"></option>
-            </select>
-
-            <label>Start Time</label>
-            <input type="time" th:field="*{events[__${iterStat.index}__].startTime}" required />
-
-            <label>End Time</label>
-            <input type="time" th:field="*{events[__${iterStat.index}__].endTime}" required />
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <div class="site-name">Add a new Course</div>
+            <div class="top-bar-buttons">
+                <a th:href="@{/}" class="btn secondary">Home</a>
+            </div>
         </div>
+    </div>
 
-        <div class="form-buttons">
-            <button type="submit" formaction="/course/add/event" class="secondary-btn">+ Add Event</button>
-            <button type="submit" formaction="/course/add/complete" class="primary-btn">Submit new Course</button>
+    <div class="course-form">
+            <form th:action="@{/course/add/complete}" th:object="${course}" method="post">
+
+                <label>Name</label>
+                <input type="text" th:field="*{name}" placeholder="Course name" required />
+
+                <label>Description</label>
+                <input type="text" th:field="*{description}" placeholder="A description of your course" required />
+
+                <label>Credits</label>
+                <input type="number" step="0.5" th:field="*{credits}" placeholder="Amount of Credits" required />
+
+                <label>First Exam date</label>
+                <input type="date" th:field="*{examDateOne}" required />
+
+                <label>Second Exam date</label>
+                <input type="date" th:field="*{examDateTwo}"  th:value="${#temporals.format(course.examDateOne, 'yyyy-MM-dd')}" required />
+
+                <label>Select Semester</label>
+                <select id="semester" th:field="*{semester}" required>
+                    <option value="" disabled selected>-- choose semester --</option>
+                    <option th:each="s : ${allSemesters}"
+                            th:value="${s.id}"
+                            th:text="${s.name} + ' (' + ${s.startYear} + ')'">
+                    </option>
+                </select>
+
+                <h3>Course Events</h3>
+                <div th:each="event, iterStat : *{events}" class="event-block">
+                    <label>Type</label>
+                    <select th:field="*{events[__${iterStat.index}__].type}" required>
+                        <option th:each="t : ${T(com.organizer.studentorganizer.Course.Type).values()}"
+                                th:value="${t}" th:text="${t}"></option>
+                    </select>
+
+                    <label>Weekday</label>
+                    <select th:field="*{events[__${iterStat.index}__].weekday}" required>
+                        <option th:each="d : ${T(com.organizer.studentorganizer.Course.Weekday).values()}"
+                                th:value="${d}" th:text="${d}"></option>
+                    </select>
+
+                    <label>Start Time</label>
+                    <input type="time" th:field="*{events[__${iterStat.index}__].startTime}" required />
+
+                    <label>End Time</label>
+                    <input type="time" th:field="*{events[__${iterStat.index}__].endTime}" required />
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" formaction="/course/add/event" class="secondary-btn">+ Add Event</button>
+                    <div th:switch="${courseStatus}">
+                        <button th:case="new" type="submit" formaction="/course/add/complete" class="primary-btn">Submit new Course</button>
+                        <button th:case="edit" type="submit" th:formaction="@{/course/edit/{id}/complete(id=${course.id})}" class="primary-btn">Submit edited Course</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
 </div>
 
 

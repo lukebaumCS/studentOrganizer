@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class CourseController {
     }
 
 
-    @RequestMapping("/mainpage/{id}")
+    @RequestMapping("/mainPage/{id}")
     public String mainPage (@PathVariable Long id, Model model) {
         Course course = courseService.getCourseById(id);
         List<CourseEvent> events = courseService.getAllCourseEvents(id);
@@ -58,6 +59,7 @@ public class CourseController {
 
         model.addAttribute("course", course);
         model.addAttribute("allSemesters", allSemester);
+        model.addAttribute("courseStatus","edit");
 
         return "course/newCourse";
     }
@@ -65,7 +67,7 @@ public class CourseController {
 
     @PostMapping("/edit/{id}/complete")
     @Transactional
-    public String update (@Valid @ModelAttribute("course") Course course, BindingResult result, Model model) {
+    public String update (@PathVariable Long id, @Valid @ModelAttribute("course") Course course, BindingResult result, Model model) {
         if (result.hasErrors()) {
             System.out.println("ERROR while creating a new course!");
             return "course/add";
@@ -81,7 +83,10 @@ public class CourseController {
             event.setCourse(course);
 
 
-        courseService.addCourse(course);
+        courseService.update(id, course);
+
+        System.out.println("Course updated successfully!");
+
         return "redirect:/course/dashboard";
     }
 
@@ -102,6 +107,8 @@ public class CourseController {
 
             model.addAttribute("course", course);
             model.addAttribute("allSemesters", allSemester);
+            model.addAttribute("courseStatus","new");
+
         }
         return "course/newCourse";
     }
@@ -119,6 +126,7 @@ public class CourseController {
 
         model.addAttribute("allSemesters", allSemester);
         model.addAttribute("course", course);
+        model.addAttribute("courseStatus","new");
 
         return "course/newCourse";
     }

@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <title>Course page</title>
     <link rel="stylesheet" th:href="@{/css/coursepage.css}" />
-
 </head>
 <body>
 
 <div class="container">
 
-    <div class="top-bar">
+    <div class="top-bar card">
         <div class="top-bar-inner">
             <div class="site-name">Course page</div>
             <div class="top-bar-buttons">
@@ -19,24 +18,43 @@
         </div>
     </div>
 
-
-    <div class="main-div-container">
-
+    <div class="main-div-container card">
         <div class="title-container">
             <div class="title-left">
                 <h1 th:text="${course.name}">Course name</h1>
             </div>
 
-            <div class="title-right">
-                <h2 th:text="${course.credits} + ' Credits'">Credits</h2>
+            <div class="title-right-wrapper">
+                <div class="title-right">
+                    <h2 th:text="${course.credits} + ' Credits'">Credits</h2>
+                </div>
+
+                <div class="title-right">
+                    <h2 th:text="${course.semester.name} + ' '+ ${course.semester.startYear}" >Semester</h2>
+                </div>
             </div>
 
+            <div class="title-right-wrapper">
+                <div class="title-right">
+                    <h2>
+                        <span class="exam-label">first exam date:</span>
+                        <span class="exam-date" th:text="${course.examDateOne}">First exam</span>
+                    </h2>
+                </div>
+                    <div class="title-right">
+                        <h2>
+                            <span class="exam-label">second exam date:</span>
+                            <span class="exam-date" th:text="${course.examDateTwo}">Second exam</span>
+                        </h2>
+                </div>
+            </div>
         </div>
 
         <div class="content-div">
             <p id="description" th:text="${course.description}">Description</p>
         </div>
 
+        <!--
         <div class="content-div">
             <p>
                 First exam date:
@@ -47,6 +65,7 @@
                 <span class="exam-date" th:text="${course.examDateTwo ?: 'No exam dates available'}"></span>
             </p>
         </div>
+        -->
 
         <div class="event-divs" th:each="event: ${course.events}">
             <h1 th:text="${event.type}"></h1>
@@ -54,7 +73,6 @@
             <p th:text="${event.startTime}"></p>
             <p th:text="${event.endTime}"></p>
         </div>
-
 
         <div class="button-group">
             <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post">
@@ -64,7 +82,6 @@
                 <button class="btn edit" type="submit">Edit</button>
             </form>
         </div>
-
     </div>
 </div>
 

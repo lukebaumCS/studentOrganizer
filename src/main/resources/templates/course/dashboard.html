@@ -9,18 +9,17 @@
 
 <div class="container">
 
-    <div class="top-bar">
+    <div class="top-bar card">
         <div class="top-bar-inner">
             <div class="site-name">Dashboard</div>
         </div>
     </div>
 
-
     <div th:if="${successMessage}" class="alert success">
         <p th:text="${successMessage}"></p>
     </div>
 
-    <div class="main-div-container">
+    <div class="main-div-container card">
 
         <a th:href="@{/course/add}" class="add-course-link">
             <div class="add-course-div">
@@ -29,7 +28,7 @@
         </a>
 
         <div class="course-divs" th:each="course : ${courses}">
-            <a th:href="@{/course/mainpage/{id}(id=${course.id})}" style="text-decoration: none; color: inherit;">
+            <a th:href="@{/course/mainPage/{id}(id=${course.id})}" style="text-decoration: none; color: inherit;">
                 <form th:action="@{/course/delete/{id}(id=${course.id})}" method="post" style="position: absolute; top: 8px; right: 10px;">
                     <button class="close-btn" type="submit">×</button>
                 </form>
@@ -40,7 +39,7 @@
                 </div>
 
                 <div class="course-description">
-                    <p th:text="${course.description ?: 'No description available'}"></p>
+                    <p th:maxlength="55" th:text="${course.description ?: 'No description available'}"></p>
                     <p th:text="${course.examDateOne ?: 'No exam dates available'}"></p>
                     <p th:text="${course.examDateTwo ?: 'No exam dates available'}"></p>
                 </div>
