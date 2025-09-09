@@ -10,6 +10,7 @@ import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Course {
@@ -34,11 +35,13 @@ public class Course {
     @JoinColumn(name = "semester_id")
     private Semester semester;
 
-
     @NotNull(message = "Credits is required")
     private Float credits;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate examDateOne;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate examDateTwo;
 
 

@@ -18,9 +18,8 @@ public class CourseService {
         this.courserepository = courserepository;
     }
 
-    public Course addCourse(Course course) {
+    public void addCourse(Course course) {
         courserepository.save(course);
-        return course;
     }
 
     public List<Course> getAllCourses() {
@@ -45,11 +44,30 @@ public class CourseService {
         else return course.getEvents();
     }
 
-
     public Semester getSemesterById(long id) {
         Course course = getCourseById(id);
 
         if  (course == null) return null;
         else return course.getSemester();
+    }
+
+    @Transactional
+    public void update(Long existingCourseID, Course updatedCourse) {
+
+        Course existingCourse = this.getCourseById(existingCourseID);
+
+        existingCourse.setName(updatedCourse.getName());
+        existingCourse.setDescription(updatedCourse.getDescription());
+        existingCourse.setCredits(updatedCourse.getCredits());
+        existingCourse.setSemester(updatedCourse.getSemester());
+
+
+        existingCourse.getEvents().clear();
+        for (CourseEvent event : updatedCourse.getEvents()) {
+            event.setCourse(existingCourse);
+            existingCourse.getEvents().add(event);
+        }
+        courserepository.delete(updatedCourse);
+        courserepository.save(existingCourse);
     }
 }

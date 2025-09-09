@@ -20,6 +20,13 @@
     gap: 20px;
 }
 
+.title-right-wrapper {
+    flex: 2.3;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .title-left,
 .title-right {
     background: #fff;
@@ -33,14 +40,15 @@
 
 .title-left {
     flex: 4;
-
 }
 
 .title-right {
+    display: flex;
     flex: 1;
     justify-content: center;
+    align-items: center;
+    padding: 2px;
 }
-
 
 
 .title-left h1,
@@ -61,11 +69,11 @@
     white-space: nowrap;
 }
 
-.title-left:hover,
-.title-right:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+.exam-label {
+    font-weight: normal;
+    color: #555;
 }
+
 
 .content-div {
     background: #fff;
@@ -75,7 +83,12 @@
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.content-div:hover {
+.content-div:hover,
+.title-left:hover,
+.title-right:hover,
+.event-divs:hover,
+.btn.secondary:hover,
+.btn.edit:hover{
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
@@ -89,7 +102,7 @@
 #description {
     margin: 5px 0;
     font-size: 1rem;
-    color: #444;
+    color: #777;
     font-weight: 600;
 }
 
@@ -104,11 +117,6 @@
     padding: 20px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.event-divs:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
 .event-divs h1 {
@@ -130,30 +138,30 @@
     margin: 2px 0;
 }
 
+.button-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 .btn.secondary,
 .btn.edit {
     background-color: #f4f6f9;
     color: #2c3e50;
-}
-
-.btn.secondary:hover,
-.btn.edit:hover {
-    background-color: #e0e4ea;
-}
-
-.btn.delete {
-    background-color: #d9534f;
-    color: #fff;
     padding: 14px 26px;
     font-weight: 700;
     border-radius: 14px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.12);
 }
 
+.btn.delete {
+    background-color: #d9534f;
+    color: #fff;
+}
+
 .btn.delete:hover {
     background-color: #c9302c;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+
 }
 
 .btn.delete:active {
