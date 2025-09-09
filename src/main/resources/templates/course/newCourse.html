@@ -32,10 +32,10 @@
                 <input type="number" step="0.5" th:field="*{credits}" placeholder="Amount of Credits" required />
 
                 <label>First Exam date</label>
-                <input type="date" th:field="*{examDateOne}" required />
+                <input type="date" th:field="*{examDateOne}"  required />
 
                 <label>Second Exam date</label>
-                <input type="date" th:field="*{examDateTwo}"  th:value="${#temporals.format(course.examDateOne, 'yyyy-MM-dd')}" required />
+                <input type="date" th:field="*{examDateTwo}" required />
 
                 <label>Select Semester</label>
                 <select id="semester" th:field="*{semester}" required>

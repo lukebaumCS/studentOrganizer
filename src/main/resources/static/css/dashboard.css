@@ -7,8 +7,6 @@
 }
 
 .course-divs {
-    background: #fff;
-    border-radius: 16px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     width: 320px;
@@ -17,7 +15,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
-    position: relative; /* wichtig für den absolut positionierten Button */
+    position: relative;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -41,8 +39,8 @@
 }
 
 .close-btn:hover {
-    background-color: #e74c3c;   /* Hintergrund hell */
-    color: #ffffff;          /* X rot */
+    background-color: #e74c3c;
+    color: #ffffff;
 }
 .course-divs:hover {
     transform: translateY(-5px);
@@ -94,7 +92,7 @@
     align-items: center;
     justify-content: center;
     width: 320px;
-    min-height: 160px;
+    min-height: 180px;
     background: #ecf0f1;
     border: 2px dashed #bdc3c7;
     border-radius: 16px;

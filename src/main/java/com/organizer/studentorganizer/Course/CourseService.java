@@ -18,9 +18,8 @@ public class CourseService {
         this.courserepository = courserepository;
     }
 
-    public Course addCourse(Course course) {
+    public void addCourse(Course course) {
         courserepository.save(course);
-        return course;
     }
 
     public List<Course> getAllCourses() {

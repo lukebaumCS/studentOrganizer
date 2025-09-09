@@ -42,8 +42,6 @@ public class CourseController {
         Course course = courseService.getCourseById(id);
         List<CourseEvent> events = courseService.getAllCourseEvents(id);
 
-        System.out.println(events);
-
         model.addAttribute("course", course);
         model.addAttribute("events", events);
 
@@ -73,19 +71,10 @@ public class CourseController {
             return "course/add";
         }
 
-
-        if (course.getSemester() != null) {
-            Semester semester = semesterService.getSemesterById(course.getSemester().getId());
-            course.setSemester(semester);
-        }
-
         for (CourseEvent event : course.getEvents())
             event.setCourse(course);
 
-
         courseService.update(id, course);
-
-        System.out.println("Course updated successfully!");
 
         return "redirect:/course/dashboard";
     }
