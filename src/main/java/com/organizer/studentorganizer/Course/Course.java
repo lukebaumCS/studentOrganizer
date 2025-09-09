@@ -29,7 +29,7 @@ public class Course {
     private List<Professor> professor;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CourseEvent> events = new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "semester_id")
@@ -48,7 +48,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(String name, String description, Float credits, LocalDate examDateOne, LocalDate examDateTwo, List<CourseEvent> events, Semester semester) {
+    public Course(String name, String description, Float credits, LocalDate examDateOne, LocalDate examDateTwo, List<Event> events, Semester semester) {
         this.name = name;
         this.description = description;
         this.credits = credits;
@@ -103,9 +103,9 @@ public class Course {
         this.examDateTwo = examDateTwo;
     }
 
-    public List<CourseEvent> getEvents() { return events; }
+    public List<Event> getEvents() { return events; }
 
-    public void setEvents(List<CourseEvent> events) { this.events = events; }
+    public void setEvents(List<Event> events) { this.events = events; }
 
     public Semester getSemester() { return this.semester; }
 

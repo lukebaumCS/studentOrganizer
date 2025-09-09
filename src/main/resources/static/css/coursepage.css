@@ -111,10 +111,16 @@
     color: #2c3e50;
 }
 
+.event-divs-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
 .event-divs {
     background: #fff;
     border-radius: 16px;
     padding: 20px;
+    flex: 1;
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     transition: transform 0.2s, box-shadow 0.2s;
 }
