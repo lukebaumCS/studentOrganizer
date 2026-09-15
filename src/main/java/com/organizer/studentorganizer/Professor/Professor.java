@@ -13,10 +13,10 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
 public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,12 @@ public class Professor {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "professor_Course",
+    @JoinTable(
+            name = "professor_course",
             joinColumns = @JoinColumn(name = "professor_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
-    private List<Course> courses;
+    private List<Course> courses = new ArrayList<>();
 
 
     public void setId(Long id) {
@@ -44,7 +45,7 @@ public class Professor {
         return name;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
