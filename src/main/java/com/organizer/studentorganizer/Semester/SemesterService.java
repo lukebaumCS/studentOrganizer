@@ -35,6 +35,10 @@ public class SemesterService {
         int thisYear = today.getYear();
         List<Semester> allSemesters = this.getAllSemesters();
 
+        if (allSemesters.isEmpty()) {
+            throw new IllegalStateException("No semesters available. Please create a semester first.");
+        }
+
         boolean nextSemester = false;
         for (Semester sem : allSemesters) {
             LocalDate semStartDate =  sem.getStartDate();
