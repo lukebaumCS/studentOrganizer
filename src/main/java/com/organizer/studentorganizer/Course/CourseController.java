@@ -11,11 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
+@SessionAttributes("course")
 @Controller
 @RequestMapping("/course")
 public class CourseController {
@@ -40,7 +40,7 @@ public class CourseController {
     @RequestMapping("/mainPage/{id}")
     public String mainPage (@PathVariable Long id, Model model) {
         Course course = courseService.getCourseById(id);
-        List<CourseEvent> events = courseService.getAllCourseEvents(id);
+        List<Event> events = courseService.getAllEvents(id);
 
         model.addAttribute("course", course);
         model.addAttribute("events", events);
@@ -65,17 +65,13 @@ public class CourseController {
 
     @PostMapping("/edit/{id}/complete")
     @Transactional
-    public String update (@PathVariable Long id, @Valid @ModelAttribute("course") Course course, BindingResult result, Model model) {
+    public String update (@PathVariable Long id, @Valid @ModelAttribute("course") Course course, BindingResult result) {
         if (result.hasErrors()) {
             System.out.println("ERROR while creating a new course!");
             return "course/add";
         }
 
-        for (CourseEvent event : course.getEvents())
-            event.setCourse(course);
-
         courseService.update(id, course);
-
         return "redirect:/course/dashboard";
     }
 
@@ -86,11 +82,11 @@ public class CourseController {
         if (!model.containsAttribute("course")) {
             Course course = new Course();
 
-            List<CourseEvent> events = new ArrayList<>();
+            List<Event> events = new ArrayList<>();
             List<Semester> allSemester = semesterService.getAllSemesters();
             Semester automaticSemester = semesterService.getAutomaticSemester();
 
-            events.add(new CourseEvent());
+            events.add(new Event());
             course.setEvents(events);
             course.setSemester(automaticSemester);
 
@@ -111,7 +107,7 @@ public class CourseController {
         }
 
         List<Semester> allSemester = semesterService.getAllSemesters();
-        course.getEvents().add(new CourseEvent());
+        course.getEvents().add(new Event());
 
         model.addAttribute("allSemesters", allSemester);
         model.addAttribute("course", course);
@@ -135,7 +131,7 @@ public class CourseController {
             course.setSemester(semester);
         }
 
-        for (CourseEvent event : course.getEvents()) {
+        for (Event event : course.getEvents()) {
             event.setCourse(course);
         }
 

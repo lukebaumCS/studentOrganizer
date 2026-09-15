@@ -21,8 +21,9 @@
 
     <div class="course-form">
             <form th:action="@{/course/add/complete}" th:object="${course}" method="post">
+                <input type="hidden" th:field="*{id}" />
 
-                <label>Name</label>
+                <label> Name</label>
                 <input type="text" th:field="*{name}" placeholder="Course name" required />
 
                 <label>Description</label>

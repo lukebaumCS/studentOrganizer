@@ -4,15 +4,18 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.opencsv.CSVReader;
 import com.organizer.studentorganizer.StudentOrganizerApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -24,46 +27,28 @@ public class SemesterController {
 
     @RequestMapping("/add")
     public String addSemester(){
-        try (InputStreamReader reader = new InputStreamReader(
-                StudentOrganizerApplication.class.getResourceAsStream("/sample.json"))) {
 
-            JsonElement jsonElement = JsonParser.parseReader(reader);
+        String filePath = "semester.csv";
+        try (CSVReader reader = new CSVReader(new InputStreamReader(
+                new ClassPathResource("semester.csv").getInputStream()))) {
 
-            if (jsonElement.isJsonArray()) {
-                JsonArray jsonArray = jsonElement.getAsJsonArray();
+            String[] line;
 
-                for (JsonElement element : jsonArray) {
-                    JsonObject obj = element.getAsJsonObject();
+            while ((line = reader.readNext()) != null) {
+                Semester semester = new Semester();
+                semester.setName(line[1]); // Name
+                semester.setStartYear(Integer.parseInt(line[2]));
+                semester.setEndYear(Integer.parseInt(line[3]));
+                semester.setStartDate(LocalDate.parse(line[4])); // "yyyy-MM-dd"
+                semester.setEndDate(LocalDate.parse(line[5]));
 
-                    String name = obj.has("name") ? obj.get("name").getAsString() : "";
-                    int startYear = obj.has("startYear") ? obj.get("startYear").getAsInt() : 0;
-                    int endYear = obj.has("endYear") ? obj.get("endYear").getAsInt() : 0;
-
-                    String startString = obj.has("startDate") ? obj.get("startDate").getAsString() : "";
-                    String endString = obj.has("endDate") ? obj.get("endDate").getAsString() : "";
-
-                    Date startDate;
-                    Date endDate;
-
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    try {
-                        startDate = formatter.parse(startString);
-                        endDate = formatter.parse(endString);
-
-                        System.out.println("Date object: " + startDate);
-                        System.out.println("Date object: " + endDate);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
-                    Semester newSem = new Semester(name, startYear, endYear, startDate, endDate);
-                    semesterService.addSemester(newSem);
-                }
-            } else {
-                System.out.println("Die JSON-Datei enthält kein Array.");
+                semesterService.addSemester(semester);
             }
+            System.out.println("CSV import completed successfully!");
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return "course/dashboard";
     }
 }

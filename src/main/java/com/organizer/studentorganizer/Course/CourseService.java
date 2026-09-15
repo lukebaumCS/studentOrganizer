@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -12,10 +13,13 @@ public class CourseService {
 
     private final CourseRepository courserepository;
 
+    private final EventService eventService;
+
 
     @Autowired
-    public CourseService(CourseRepository courserepository) {
+    public CourseService(CourseRepository courserepository, EventService eventService) {
         this.courserepository = courserepository;
+        this.eventService = eventService;
     }
 
     public void addCourse(Course course) {
@@ -37,7 +41,7 @@ public class CourseService {
         courserepository.deleteById(id);
     }
 
-    public List<CourseEvent> getAllCourseEvents(Long id) {
+    public List<Event> getAllEvents(Long id) {
         Course course = getCourseById(id);
 
         if  (course == null) return null;
@@ -61,13 +65,22 @@ public class CourseService {
         existingCourse.setCredits(updatedCourse.getCredits());
         existingCourse.setSemester(updatedCourse.getSemester());
 
-
-        existingCourse.getEvents().clear();
-        for (CourseEvent event : updatedCourse.getEvents()) {
-            event.setCourse(existingCourse);
-            existingCourse.getEvents().add(event);
+        List<Event> toKeep = new ArrayList<>();
+        for (Event event : updatedCourse.getEvents()) {
+            if (event.getId() != null) {
+                // update existing events
+                Event existingEvent = eventService.findEventById(event.getId());
+                existingEvent.setType(event.getType());
+                existingEvent.setWeekday(event.getWeekday());
+                existingEvent.setStartTime(event.getStartTime());
+                existingEvent.setEndTime(event.getEndTime());
+                toKeep.add(existingEvent);
+            } else {
+                // add new events
+                event.setCourse(existingCourse);
+                toKeep.add(event);
+            }
         }
-        courserepository.delete(updatedCourse);
-        courserepository.save(existingCourse);
+        existingCourse.setEvents(toKeep);
     }
 }

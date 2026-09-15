@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalTime;
 
 @Entity
-public class CourseEvent {
+public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
